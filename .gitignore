@@ -5,4 +5,4 @@ dist
 .parcel-cache
 tailwind.config.js
 .postcssrc
-src/index.css
+.prettierrc.json
