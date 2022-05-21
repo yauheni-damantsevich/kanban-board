@@ -20,16 +20,28 @@ export let columnTitle = factory(
   },
   factory(
     "form",
-    { id: "ColumnTitleForm", class: "p-8 flex flex-col" },
+    { id: "columnForm", class: "p-8 flex flex-col" },
     factory("input", {
-      id: "ColumnTitleInput",
+      id: "columnTitleInput",
       placeholder: "Enter the title",
       class: "w-6/12 self-center p-4 rounded-lg bg-gray-50 shadow-inner mb-4",
     }),
     factory(
+      "select",
+      {
+        id: "columnSelectColor",
+        class: "w-6/12 self-center p-4 rounded-lg bg-gray-50 mb-4",
+      },
+      factory("option", { value: "gray" }, "Gray"),
+      factory("option", { value: "yellow" }, "Yellow"),
+      factory("option", { value: "green" }, "Green"),
+      factory("option", { value: "blue" }, "Blue"),
+      factory("option", { value: "red" }, "Red")
+    ),
+    factory(
       "button",
       {
-        id: "ColumnTitleButton",
+        id: "columnButton",
         type: "button",
         class:
           "w-6/12 self-center p-4 bg-gray-50 rounded-lg drop-shadow-md active:bg-gray-100 active:drop-shadow-none active:shadow-inner",

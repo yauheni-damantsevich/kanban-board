@@ -1,5 +1,7 @@
 import { columnTitle } from "./factory.js";
 
+// Creation
+
 let addColumnButton = document.getElementById("addColumn");
 
 export function createColumn() {
@@ -10,20 +12,31 @@ export function createColumn() {
 
 function createColumnObject({ target }) {
   root.prepend(columnTitle);
-  let form = document.getElementById("ColumnTitleForm");
-  let input = form.elements["ColumnTitleInput"];
-  let button = form.elements["ColumnTitleButton"];
+  let form = document.getElementById("columnTitleForm");
+  let input = form.elements["columnTitleInput"];
+  let select = form.elements["columnSelectColor"];
+  let button = form.elements["columnButton"];
   let id = 0;
-  let array = [];
-  let value;
+  let arrayForItems = [];
+  let arrayForColumns = [];
+  let objectForValues = {};
+  let titleValue;
+  let colorValue;
   input.addEventListener("change", ({ target }) => {
-    value = target.value;
+    titleValue = target.value;
+  });
+  select.addEventListener("change", ({ target }) => {
+    colorValue = target.value;
   });
   button.addEventListener("click", ({ target }) => {
     localStorage.setItem(
-      `column-${removeSpaces(value)}`,
-      JSON.stringify(array)
+      `column-${removeSpaces(titleValue)}`,
+      JSON.stringify(arrayForItems)
     );
+    objectForValues.title = titleValue;
+    objectForValues.color = colorValue;
+    arrayForColumns.push(objectForValues);
+    localStorage.setItem("columns", JSON.stringify(arrayForColumns));
   });
 }
 
@@ -34,3 +47,5 @@ function removeSpaces(string) {
   );
   return result.join("");
 }
+
+// Render

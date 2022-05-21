@@ -7,6 +7,6 @@ dist
 
 tailwind.config.js
 .postcssrc
-./src/input.css
+src/input.css
 
 .prettierrc.json
