@@ -12,7 +12,7 @@ export function createColumn() {
 
 function createColumnObject({ target }) {
   root.prepend(columnTitle);
-  let form = document.getElementById("columnTitleForm");
+  let form = document.getElementById("columnForm");
   let input = form.elements["columnTitleInput"];
   let select = form.elements["columnSelectColor"];
   let button = form.elements["columnButton"];
