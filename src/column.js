@@ -58,21 +58,22 @@ export function createColumnObject({ target }) {
 export let columnForm = factory(
   "div",
   {
-    class: "flex flex-col flex-grow flex-col bg-gray-50 rounded-lg",
+    class: "flex flex-1 flex-col bg-gray-50 rounded-lg",
   },
   factory(
     "form",
-    { id: "columnForm", class: "p-8 flex flex-col" },
+    { id: "columnForm", class: "flex flex-col" },
     factory("input", {
       id: "columnTitleInput",
       placeholder: "Enter the title",
-      class: "w-6/12 self-center p-4 rounded-lg bg-gray-50 shadow-inner mb-4",
+      class:
+        "text-lg w-6/12 self-center m-4 p-4 rounded-lg bg-inherit shadow-inner mb-4",
     }),
     factory(
       "select",
       {
         id: "columnSelectColor",
-        class: "w-6/12 self-center p-4 rounded-lg bg-gray-50 mb-4",
+        class: "w-6/12 self-center m-4 p-4 rounded-lg bg-inherit mb-4",
       },
       factory("option", { value: " " }, "Select Color"),
       factory("option", { value: "gray" }, "Gray"),
@@ -87,7 +88,7 @@ export let columnForm = factory(
         id: "columnButton",
         type: "button",
         class:
-          "w-6/12 self-center p-4 bg-gray-50 rounded-lg drop-shadow-md active:bg-gray-100 active:drop-shadow-none active:shadow-inner",
+          "w-6/12 self-center m-4 p-4 bg-inherit rounded-lg drop-shadow-md active:bg-gray-100 active:drop-shadow-none active:shadow-inner",
       },
       "Confirm"
     )
@@ -113,50 +114,49 @@ function addSpaces(string) {
 export function createColumnElement() {
   let localColumns = JSON.parse(localStorage.getItem("columns"));
   localColumns.forEach((element) => {
-    let column = factory(
-      "div",
-      {
-        class:
-          "flex flex-col justify-start flex-1 drop-shadow-xl p-2 rounded-lg",
-      },
-      factory(
+    if (localColumns.indexOf(element) === localColumns.length - 1) {
+      let column = factory(
         "div",
         {
-          id: `${element.id}-title`,
-          class: "flex justify-between mb-2 p-4",
+          class:
+            "flex-grow flex flex-col justify-start flex-1 drop-shadow-xl rounded-lg",
         },
-        factory("h2", { class: "text-xl" }, addSpaces(element.title)),
-        factory("span", { class: "" })
-      ),
-      factory(
-        "button",
-        {
-          id: `${element.id}-add-todo-button`,
-          class: "mt-auto p-4 rounded-lg drop-shadow-md",
-        },
-        "Add ToDo"
-      ),
-      factory(
-        "button",
-        {
-          id: `${element.id}-delete-all-todo-button`,
-          class: "mt-auto p-4 rounded-lg drop-shadow-md",
-        },
-        "Delete All"
-      )
-    );
-    root.prepend(column);
-    columnColor(element, column);
+        factory(
+          "div",
+          {
+            id: `${element.id}-title`,
+            class: "flex justify-between m-4 p-4",
+          },
+          factory("h2", { class: "text-lg" }, addSpaces(element.title)),
+          factory("span", { class: "" })
+        ),
+        factory(
+          "button",
+          {
+            id: `${element.id}-add-todo-button`,
+            class: "bg-inherit mt-auto m-4 p-4 rounded-lg drop-shadow-md",
+          },
+          "Add ToDo"
+        ),
+        factory(
+          "button",
+          {
+            id: `${element.id}-delete-all-todo-button`,
+            class: "bg-inherit m-4 p-4 rounded-lg drop-shadow-md",
+          },
+          "Delete All"
+        )
+      );
+      root.prepend(column);
+      columnColor(element, column);
+    }
   });
 }
 
 function columnColor(element, column) {
-  let columnTitle = column.childNodes[0];
-  element.color === "gray" ? columnTitle.classList.add("bg-gray-200") : null;
-  element.color === "yellow"
-    ? columnTitle.classList.add("bg-yellow-200")
-    : null;
-  element.color === "green" ? columnTitle.classList.add("bg-green-200") : null;
-  element.color === "blue" ? columnTitle.classList.add("bg-blue-200") : null;
-  element.color === "red" ? columnTitle.classList.add("bg-red-200") : null;
+  element.color === "gray" ? column.classList.add("bg-gray-200") : null;
+  element.color === "yellow" ? column.classList.add("bg-yellow-200") : null;
+  element.color === "green" ? column.classList.add("bg-green-200") : null;
+  element.color === "blue" ? column.classList.add("bg-blue-200") : null;
+  element.color === "red" ? column.classList.add("bg-red-200") : null;
 }
