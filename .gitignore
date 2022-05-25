@@ -9,4 +9,4 @@ tailwind.config.js
 .postcssrc
 src/input.css
 
-.prettierrc.json
+.eslintrc.js
