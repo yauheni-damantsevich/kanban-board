@@ -1,4 +1,5 @@
 import { factory } from "./factory.js";
+import { createItemObject } from "./item.js";
 
 let root = document.getElementById("root");
 let addColumnButton = document.getElementById("addColumn");
@@ -159,4 +160,11 @@ function columnColor(element, column) {
   element.color === "green" ? column.classList.add("bg-green-200") : null;
   element.color === "blue" ? column.classList.add("bg-blue-200") : null;
   element.color === "red" ? column.classList.add("bg-red-200") : null;
+}
+
+function addTodoButtonAction(element) {
+  let addTodoButton = document.getElementById(`${element.id}-add-todo-button`);
+  addTodoButton.addEventListener("click", (event) => {
+    createItemObject();
+  });
 }
